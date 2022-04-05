@@ -1,8 +1,8 @@
 # Matrix Rain
 My version of the Matrix rain. 
-Not exactly the same as the movies. 
+Not exactly the same as the movies but gives a 3-dimensional feel to the screen. 
 
-![image](https://user-images.githubusercontent.com/38061493/161663294-2c912f7d-67ca-45d0-86e4-f452f34e5201.png)
+<img src="https://user-images.githubusercontent.com/38061493/161663364-e426b20b-8d65-4262-af99-498488a373a3.png" width="500" height="300">
 
 # Requirements
 pygame
