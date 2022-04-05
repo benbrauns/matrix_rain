@@ -18,3 +18,5 @@ pygame
   * Press F to restore
   * Press Q to quit
   * Press D to display FPS
+  
+Wallpaper code from: https://github.com/Francesco149/weebp/blob/3f9e2d5ab7f5f1f9215c700a6dfba8173fc18344/src/weebp.c#L419
