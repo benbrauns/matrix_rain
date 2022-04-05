@@ -1,6 +1,6 @@
 # Matrix Rain
 My version of the Matrix rain. 
-Not exactly the same as the movies but gives a 3-dimensional feel to the screen. 
+Not exactly the same as the movie's but gives a 3-dimensional feel to the screen. 
 
 <img src="https://user-images.githubusercontent.com/38061493/161663364-e426b20b-8d65-4262-af99-498488a373a3.png" width="500" height="300">
 
