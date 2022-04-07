@@ -6,13 +6,14 @@ from src.constants import GREENISH_WHITE
 
 def make(class_name, total=1, args=None):
     objects = []
+    last = total - 1
     for i in range(total):
         new_object = class_name(*args)
         if isinstance(new_object, Letter):
-            if i == 0:
+            if i == last:
                 new_object.color = GREENISH_WHITE
-                new_object.new_letter(new_object.rect.center)
-            new_object.rect.y -= i * new_object.size
+                new_object.new_letter()
+            new_object.position = i
         objects.append(new_object)
     return objects
 

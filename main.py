@@ -6,6 +6,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption(TITLE)
+    pygame.mouse.set_visible(False)
     hwnd = pygame.display.get_wm_info()['window']
 
     from src.game import Game
