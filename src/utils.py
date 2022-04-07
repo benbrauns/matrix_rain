@@ -8,7 +8,7 @@ def make(class_name, total=1, args=None):
     objects = []
     last = total - 1
     for i in range(total):
-        new_object = class_name(*args)
+        new_object = class_name(*args if args else ())
         if isinstance(new_object, Letter):
             if i == last:
                 new_object.color = GREENISH_WHITE

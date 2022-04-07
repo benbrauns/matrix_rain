@@ -19,11 +19,12 @@ class Game:
         self.screen = screen
         self.screen.fill("black")
         self.clock = pygame.time.Clock()
-        self.trails = utils.make(Trail, 10, args=[GREEN])
+        self.trails = []
         self.bounds = pygame.Rect((0, 0), pygame.display.get_window_size())
         self.blured = False
         self.debug_mode = False
         self._init_timers()
+        self._add_new_trails()
 
     def _init_timers(self):
         pygame.time.set_timer(TRAIL_TIMER, random.randint(100, 500))
@@ -74,7 +75,7 @@ class Game:
     def _add_new_trails(self):
         if len(self.trails) < MAX_TRAILS:
             amount = min(random.randint(20, 50), MAX_TRAILS - len(self.trails))
-            self.trails += utils.make(Trail, amount, args=[GREEN])
+            self.trails += utils.make(Trail, amount)
             self.trails.sort(reverse=False, key=lambda trail: trail.letters[0].size)
 
     def _handle_trails(self, dt):

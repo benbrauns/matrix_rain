@@ -5,10 +5,10 @@ from src.utils import weighted_random_size, make
 from src.letter import Letter
 from src.constants import SPEED_MULT
 
-class Trail:
-    def __init__(self, color):
+class Trail(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
         self.length = random.randint(10, 30)
-        self.color = color
         self.letters = None
         self.surface = None
         self.rect = None
@@ -16,22 +16,25 @@ class Trail:
         self.new_letters()
 
     def new_letters(self):
+        self.letters = make(Letter, self.length, args=(*weighted_random_size(),))
+        self.velocity.update(0, self.letters[0].size * SPEED_MULT)
+        self.update_surface()
+
+
+    def update_surface(self):
         window_width = pygame.display.get_window_size()[0]
-        self.letters = make(Letter, self.length, args=(*weighted_random_size(), self.color))
-
-
         width = self.letters[0].surface.get_width() * 2
+        #print(width)
         height = self.letters[0].surface.get_height() * len(self.letters)
+
         self.surface = pygame.Surface((width, height))
         self.surface.set_colorkey('black')
-        x = random.randint(0, window_width)
-        y = random.randint(-200 + -height, -height)
-        self.rect = self.surface.get_rect(center=(x, y))
+        if not self.rect:
+            x = random.randint(0, window_width)
+            y = random.randint(-height - 200, -height)
+            self.rect = self.surface.get_rect(center=(x, y))
         for letter in self.letters:
-            center_x = self.surface.get_width() // 2 - letter.surface.get_width() // 2
-            self.surface.blit(letter.surface, (center_x, letter.surface.get_height() * letter.position))
-        self.velocity.update(0, self.letters[0].size * SPEED_MULT)
-        # Create surface and blit new letters
+            letter.draw(self.surface)
 
     def update(self, dt):
         # Blit onto Trail surface if new changes
@@ -39,5 +42,8 @@ class Trail:
         self.rect.center += self.velocity
 
     def draw(self, surface):
+        #[letter.draw(self.surface) for letter in self.letters]
+        if any(letter.changed for letter in self.letters):
+            self.update_surface()
         surface.blit(self.surface, self.rect)
 
