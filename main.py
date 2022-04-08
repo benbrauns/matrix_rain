@@ -1,9 +1,6 @@
 #
 import pygame
 from src.constants import WIDTH, HEIGHT, TITLE
-import cProfile
-import io 
-import pstats
 
 
 def main():
@@ -24,6 +21,5 @@ def main():
         raise err
 
 
-
-main()
-# cProfile.run('main()')
+if __name__ == '__main__':
+    main()

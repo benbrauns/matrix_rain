@@ -5,8 +5,9 @@ from src.constants import PADDING, SPEED_MULT, ALLOWED_LETTERS, MIN_LETTER_TIME,
 from src.rendered_text import RenderedText
 
 class Letter(pygame.sprite.Sprite):
-    def __init__(self, group, size, color, velocity):
+    def __init__(self, group, size, color, velocity, trail):
         super().__init__(group)
+        self.trail = trail
         self.size = size
         self.color = color
         self.letter = None
@@ -37,6 +38,7 @@ class Letter(pygame.sprite.Sprite):
         if self.timer <= 0:
             self.new_letter()
             self._reset_timer()
+            self.trail.letter_changed = True
         self.timer -= dt
         if self.rect.top > pygame.display.get_window_size()[1]:
             self.kill()

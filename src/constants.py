@@ -30,7 +30,7 @@ MIN_LETTER_TIME = 1000
 MAX_LETTER_TIME = 1500
 SPEED_MULT = 0.05
 SPEED_MULT = 0.2
-MAX_TRAILS = 100
+MAX_TRAILS = 200
 
 GREENISH_WHITE = (217, 255, 217, 255)  # pygame.Color('green').lerp((255, 255, 255), 0.85)
 GREEN = (0, 255, 0, 255)  # pygame.Color('green')

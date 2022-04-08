@@ -85,15 +85,18 @@ class Game:
 
 
     def _handle_trails(self, dt):
-        self.trail_group.update()
         self.letter_group.update(dt)
-        self.letter_group.customDraw()
+        self.trail_group.update()
+        self.trail_group.draw(self.screen)
+        # self.letter_group.customDraw()
         
 
+
     def blur(self):
-        new_surf = pygame.transform.smoothscale(self.screen, (self.bounds.width // 2, self.bounds.height // 2))
-        new_surf = pygame.transform.smoothscale(new_surf, (self.bounds.width, self.bounds.height))
-        self.screen.blit(new_surf, (0, 0))
+        new_surf = pygame.transform.scale(self.screen, (self.bounds.width // 2, self.bounds.height // 2))
+        new_surf = pygame.transform.smoothscale(new_surf, (self.bounds.width, self.bounds.height), self.screen)
+        # new_surf = pygame.transform.smoothscale(self.screen, (self.bounds.width // 2, self.bounds.height // 2))
+        # new_surf = pygame.transform.smoothscale(new_surf, (self.bounds.width, self.bounds.height), self.screen)
 
     def display_fps(self):
         text = f"FPS: {self.clock.get_fps():.0f} " \
