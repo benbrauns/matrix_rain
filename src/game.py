@@ -84,7 +84,7 @@ class Game:
             trail.draw(self.screen)
         if pygame.time.get_ticks() % 2:
             self.trails[:] = [trail for trail in self.trails
-                              if trail.rect.top < self.bounds.height]
+                              if trail.rect.top < self.bounds.bottom]
 
     def blur(self):
         new_surf = pygame.transform.smoothscale(self.screen, (self.bounds.width // 2, self.bounds.height // 2))
