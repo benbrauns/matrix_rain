@@ -1,11 +1,16 @@
 #
 import pygame
 from src.constants import WIDTH, HEIGHT, TITLE
+import cProfile
+import io 
+import pstats
+
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption(TITLE)
+    pygame.mouse.set_visible(False)
     hwnd = pygame.display.get_wm_info()['window']
 
     from src.game import Game
@@ -18,10 +23,7 @@ def main():
         WindowManager.quit()
         raise err
 
-if __name__ == '__main__':
-    main()
 
 
-
-
-
+main()
+# cProfile.run('main()')

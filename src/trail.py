@@ -1,30 +1,61 @@
 #
+from copy import copy
 import random
 import pygame.display
 from src.utils import weighted_random_size, make
 from src.letter import Letter
+from src.constants import SPEED_MULT
 
-class Trail:
-    def __init__(self, color):
+class Trail(pygame.sprite.Sprite):
+    def __init__(self, color, group, letter_group):
+        super().__init__(group)
         self.length = random.randint(10, 30)
         self.color = color
-        self.letters = None
-        self.bounds = pygame.Rect((0, 0), pygame.display.get_window_size())
+        self.letter_size = weighted_random_size()[0]
+        self.velocity = pygame.Vector2((0, 0))
+        self.velocity.update(0, self.letter_size * SPEED_MULT)
+        self.letters = self.createLetters(letter_group)
+        self.group = group
+        self.letter_group = letter_group
+        self.image = None
+        self.rect = None
         self.new_letters()
 
+
+    def createLetters(self, letter_group):
+        letters = []
+        for i in range(self.length):
+            letter = Letter(letter_group, self.letter_size, self.color, self.velocity)
+            letter.position = i
+
+            letter_group.add(letter)
+            letters.append(letter)
+        return letters
+
     def new_letters(self):
-        self.letters = make(Letter, self.length, args=(*weighted_random_size(),
-                                                       (random.randint(0, self.bounds.width), random.randint(-200, 0)),
-                                                       self.color))
-
-    def update_bounds(self, new_bounds):
-        self.bounds = new_bounds
-        [letter.update_bounds(new_bounds) for letter in self.letters]
-
-    def update(self, dt):
+        window_width = pygame.display.get_window_size()[0]
+        width = self.letters[0].image.get_width() * 2
+        height = self.letters[0].image.get_height() * len(self.letters)
+        # self.image = pygame.Surface((width, height))
+        # self.image.set_colorkey('black')
+        x = random.randint(-100, window_width)
+        y = random.randint(-200 + -height, -height)
+        self.rect = pygame.Rect((x,y),(width,height))
         for letter in self.letters:
-            letter.update(dt)
-
-    def draw(self, surface):
+            letter.getRect(self.rect.midtop)
+        
+    def delete(self):
         for letter in self.letters:
-            letter.draw(surface)
+            letter.kill()
+            del letter
+        self.kill()
+        del self
+
+    def update(self):
+        #checks if the trail should be removed
+        self.rect.center += self.velocity
+        if self.rect.top > pygame.display.get_window_size()[1]:
+            self.delete()
+
+
+
